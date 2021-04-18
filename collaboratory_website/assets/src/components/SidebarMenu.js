@@ -29,8 +29,6 @@ export default class SidebarMenu extends Component {
 
   getUser = () => {
     axios.get(CURRENT_USER_API_URL).then(res =>  {
-      console.log("in getUser")
-      console.log(res)
       console.log(res.data)
       this.setState({ user: res.data });
       console.log(this.state.user)
@@ -46,18 +44,16 @@ export default class SidebarMenu extends Component {
     return (
       <Router basename='/dashboard'>
         <Menu inverted vertical menu>
-          <Menu.Item
+          <Menu.Item as='h2'
             id='site-title'
-            name='site-title'
+            name='Collaboratory Online'
+
           >
-            {/* <p>Website Title/Logo</p> */}
-            {/* <img src={Logo} alt="Logo" /> */}
           </Menu.Item>
           <Link to="/profile">
             <Menu.Item
               id='user-profile'
               name='profile'
-              // active={activeItem === 'profile'}
             >
               <i className="huge icons">
                 <i className="big circle outline icon"></i>
@@ -68,17 +64,17 @@ export default class SidebarMenu extends Component {
           </Link>
           <Link to="/channels">
             <Menu.Item
-            name='channels'
+            name='Discussions'
             />
           </Link>
           <Link to="/events">
             <Menu.Item
-              name='events'
+              name='Socials and Events'
             />
           </Link>
           <Link to="/directory">
             <Menu.Item
-              name='directory'
+              name='Directory'
             />
           </Link>
         </Menu>
@@ -89,10 +85,14 @@ export default class SidebarMenu extends Component {
               />
             </Route>
             <Route path="/channels">
-              <Channels />
+              <Channels 
+                data={this.state.user}
+              />
             </Route>
             <Route path="/events">
-              <Events/>
+              <Events
+                data={this.state.user}
+              />
             </Route>
             <Route path="/directory">
               <Directory />
